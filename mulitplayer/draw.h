@@ -2,28 +2,58 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "entites.h"
-#include "animation.h" 
+#include "animation.h"
 
 namespace draw
 {
-    entites::entity player = {50, 50, 10, 450, 300, RED};
-    //                         w   h  s   x   y   c
+    entites::entity player = { 32, 32, 10, 450, 300, RED };
+
+    // Define animation texture and rectangles
+    Texture2D playerAnimationTexture;
+
+    Rectangle playerFrames[] = {
+        {49, 64, 16, 32},
+        {158, 64, 16, 32},
+        {270, 64, 16, 32},
+        {382, 64, 16, 32},
+        {493, 64, 16, 32},
+        {607, 64, 16, 32},
+        {721, 64, 16, 32},
+        {832, 64, 16, 32},
+
+        
+    };
+    SpriteAnimation playerAnimation;
+
+    Rectangle dest = { player.initX, player.initY, player.width, player.height };
+    Vector2 origin = { player.width / 2, player.height / 2 };
+    float rotation = 0;
     
-    // Function to draw the player
-    Texture2D _texture = LoadTexture("assets/red_hood/redHood.png");
-    SpriteAnimation _animation = CreateSpriteAnimation(_texture, 8, {
-       {0, 0, 32, 32},
-       {32, 0, 32, 32},
-       {64, 0, 32, 32}
-     });
+    void UpdateDrawFrame(void);
 
-
-    void drawPlayer()
+    void initializePlayerAnimation()
     {
-        Rectangle dest = { player.initX, player.initY, player.width, player.height };
-        Vector2 origin = { player.width / 2, player.height / 2 };
+        srand(time(0));
 
-        DrawSpriteAnimationPro(_animation, dest, origin, 0, WHITE);
+        // Load animation texture
+        playerAnimationTexture = LoadTexture("assets/playerAtlas.png");
+
+        // Create the SpriteAnimation
+        playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, playerFrames, 8);
     }
 
+    void UpdateDrawFrame(void)
+    {
+        //Rectangle dest = { player.initX, player.initY, player.width, player.height };
+        //Vector2 origin = { player.width / 2, player.height / 2 };
+
+        BeginDrawing();
+
+        ClearBackground(RAYWHITE);
+
+        DrawSpriteAnimationPro(playerAnimation, dest, origin, 0, WHITE);
+        player.moveE();
+
+        EndDrawing();
+    }
 }

@@ -16,7 +16,7 @@ namespace entites
 
         //Constructor with default values
         entity(int h = 10, int w = 20, int s = 10, int x = 10, int y = 20, Color c = WHITE)
-           : height(h), width(w), speed(s), initX(x), initY(y), color(c) {}
+            : height(h), width(w), speed(s), initX(x), initY(y), color(c) {}
 
         // Member function to draw rectangle
         void drawE()

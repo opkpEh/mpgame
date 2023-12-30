@@ -1,28 +1,53 @@
 #include "animation.h"
 
-SpriteAnimation CreateSpriteAnimation(Texture2D atlas, int framesPerSecond, const std::vector<Rectangle>& frames)
-{
-    SpriteAnimation spriteAnimation =
-    {
-        atlas,
-        framesPerSecond,
-        GetTime(),
-        frames
-    };
+#include <stdlib.h>
 
-    return spriteAnimation;
+SpriteAnimation CreateSpriteAnimation(Texture2D atlas, int framesPerSecond, Rectangle rectangles[], int length)
+{
+	//constructor  
+	SpriteAnimation spriteAnimation =
+	{
+		atlas,
+		framesPerSecond,
+		GetTime(),
+		NULL,
+		length
+	};
+
+	//allocate memory for rectangles
+	Rectangle* mem = (Rectangle*)malloc(sizeof(Rectangle) * length);
+
+	if (mem == NULL)
+	{
+		TraceLog(LOG_FATAL, "No memory for CreateSpriteAnimation");
+		spriteAnimation.rectanglesLength = 0;
+		return spriteAnimation;
+	}
+	//copy rectangles
+	spriteAnimation.rectangles = mem;
+
+	//copy rectangles
+	for (int i = 0; i < length; i++)
+	{
+		spriteAnimation.rectangles[i] = rectangles[i];
+	}
+
+	return spriteAnimation;
 }
 
-void DisposeSpriteAnimation(SpriteAnimation& animation)
+//destructor for the allocated memory
+void DisposeSpriteAnimation(SpriteAnimation animation)
 {
-    // Vector is automatically cleaned up when it goes out of scope
-    animation.rectangles.clear();
+	free(animation.rectangles);
 }
 
-void DrawSpriteAnimationPro(const SpriteAnimation& animation, Rectangle dest, Vector2 origin, float rotation, Color tint)
+//draws the animation
+void DrawSpriteAnimationPro(SpriteAnimation animation, Rectangle dest, Vector2 origin, float rotation, Color tint)
 {
-    int index = static_cast<int>((GetTime() - animation.timeStarted) * animation.framesPerSecond) % animation.rectangles.size();
+	int index = (int)((GetTime() - animation.timeStarted) * animation.framesPerSecond) % animation.rectanglesLength;
 
-    Rectangle source = animation.rectangles[index];
-    DrawTexturePro(animation.atlas, source, dest, origin, rotation, tint);
+	Rectangle source = animation.rectangles[index];
+	DrawTexturePro(animation.atlas, source, dest, origin, rotation, tint);
 }
+
+
