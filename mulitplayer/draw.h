@@ -18,12 +18,12 @@ namespace draw
      });
 
 
-    void drawPlayer()
-    {
+	void drawPlayer()
+	{
         Rectangle dest = { player.initX, player.initY, player.width, player.height };
         Vector2 origin = { player.width / 2, player.height / 2 };
 
         DrawSpriteAnimationPro(_animation, dest, origin, 0, WHITE);
-    }
+	}
 
 }
