@@ -24,6 +24,9 @@
     <ClCompile Include="animatioin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frames.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

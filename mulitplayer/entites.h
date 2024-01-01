@@ -2,47 +2,58 @@
 #include "raylib.h"
 #include "main.h"
 #include <iostream>
+#include "animation.h"
 
 namespace entites
 {
     struct entity
     {
-        int height;
-        int width;
-        int speed;
-        int initX;
-        int initY;
+        float height;
+        float width;
+        float speed;
+        float initX;
+        float initY;
         Color color;
+        bool isMoving = false;
 
-        //Constructor with default values
-        entity(int h = 10, int w = 20, int s = 10, int x = 10, int y = 20, Color c = WHITE)
-            : height(h), width(w), speed(s), initX(x), initY(y), color(c) {}
+        Texture2D playerAnimationTexture;
+        SpriteAnimation playerAnimation;
 
-        // Member function to draw rectangle
+        Rectangle dest;
+        Vector2 origin;
+        float rotation;
+
         void drawE()
         {
-            DrawRectangle(initX, initY, width, height, color);
+            DrawRectangle((int)initX, (int)initY, (int)width, (int)height, color);
         }
-        
-        //entity movement
+
         void moveE()
         {
             if (IsKeyDown(KEY_W) && initY>=2)
             {
                 initY -= speed;
+                isMoving = true;
             }
-            if (IsKeyDown(KEY_S) && initY<=worldWidth-height-1)
+            if (IsKeyDown(KEY_S) && initY<=worldWidth-height-4)
             {
 				initY += speed;
+                isMoving = true;
 			}
             if (IsKeyDown(KEY_A) && initX>=3)
             {
                 initX -= speed;
+                isMoving = true;
             }
-            if (IsKeyDown(KEY_D) && initX<=worldHeight-width)
+            if (IsKeyDown(KEY_D) && initX<=worldHeight-width-6)
             {
 				initX += speed;
-			}   
+                isMoving = true;
+			}
+            else
+            {
+                isMoving = false;
+            }
         }
     };
 }

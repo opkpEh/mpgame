@@ -1,59 +1,78 @@
 #pragma once
 #include "raylib.h"
-#include "raymath.h"
 #include "entites.h"
 #include "animation.h"
 
+Rectangle idle[] = {
+{04, 04, 15, 17},
+{28, 04, 15, 17},
+{52, 04, 15, 17},
+{76, 04, 15, 17}
+};
+//4
+
+Rectangle run[] = {
+    {438, 06, 18, 15},
+    {462, 06, 18, 15},
+    {486, 06, 18, 15},
+    {510, 06, 18, 15},
+    {534, 06, 18, 15},
+    {558, 06, 18, 15}
+};
+//6
+
+Rectangle walk[] = {
+    {100, 04, 15, 17},
+    {124, 04, 15, 17},
+    {148, 04, 15, 17},
+    {172, 04, 15, 17},
+    {196, 04, 15, 17},
+    {220, 04, 15, 17},
+};
+//6
+
+Rectangle hurt[] = {
+    {340, 03, 15, 18},
+    {362, 03, 15, 18},
+    {386, 03, 15, 18}
+};
+//3
+
 namespace draw
 {
-    entites::entity player = { 32, 32, 10, 450, 300, RED };
-
-    // Define animation texture and rectangles
-    Texture2D playerAnimationTexture;
-
-    Rectangle playerFrames[] = {
-        {49, 64, 16, 32},
-        {158, 64, 16, 32},
-        {270, 64, 16, 32},
-        {382, 64, 16, 32},
-        {493, 64, 16, 32},
-        {607, 64, 16, 32},
-        {721, 64, 16, 32},
-        {832, 64, 16, 32},
-
-        
-    };
-    SpriteAnimation playerAnimation;
-
-    Rectangle dest = { player.initX, player.initY, player.width, player.height };
-    Vector2 origin = { player.width / 2, player.height / 2 };
-    float rotation = 0;
-    
-    void UpdateDrawFrame(void);
+    entites::entity player = { 64.0, 64.0, 10.0, 450.0, 300.0, RED };
+    //                          h     w     s     x      y      c
 
     void initializePlayerAnimation()
     {
-        srand(time(0));
+        player.dest = { player.initX, player.initY, player.width, player.height };
+        player.origin = { 0, 0 };
+        player.rotation = 0.0f;
 
-        // Load animation texture
-        playerAnimationTexture = LoadTexture("assets/playerAtlas.png");
+        player.playerAnimationTexture = LoadTexture("assets/character/sheets/blueDino.png");
 
-        // Create the SpriteAnimation
-        playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, playerFrames, 8);
+        player.playerAnimation = CreateSpriteAnimation(player.playerAnimationTexture, 8, idle, 4);
+        //                                     texture, fps, rectangles, length
     }
 
-    void UpdateDrawFrame(void)
+    void renderPlayer()
     {
-        //Rectangle dest = { player.initX, player.initY, player.width, player.height };
-        //Vector2 origin = { player.width / 2, player.height / 2 };
-
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawSpriteAnimationPro(playerAnimation, dest, origin, 0, WHITE);
-        player.moveE();
-
-        EndDrawing();
+        DrawSpriteAnimationPro(player.playerAnimation, player.dest, player.origin, player.rotation, WHITE);
     }
+
+    void UpdateDrawFrame()
+    {
+        player.dest = { player.initX, player.initY, player.width, player.height };
+
+        player.moveE();
+    }
+
+    void drawFrame()
+    {   
+
+        player.drawE();
+        renderPlayer();
+    }
+
+    
 }
