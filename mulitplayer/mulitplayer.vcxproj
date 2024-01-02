@@ -128,18 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animatioin.cpp" />
-    <ClCompile Include="frames.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sprite2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="entites.h" />
     <ClInclude Include="frames.h" />
-    <ClInclude Include="screens.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Sprite2D.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\red_hood_girl\redHoodGirl.png" />
