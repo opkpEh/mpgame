@@ -61,8 +61,8 @@ namespace entites
                 animationState = AnimationState::Idle;
                 playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, idle, 4);
             }
-        }
-
+        };
+        
         void moveE()
         {
             AnimationState previousState = animationState;

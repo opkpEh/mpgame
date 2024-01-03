@@ -12,17 +12,18 @@ int main()
 	InitWindow(worldWidth, worldHeight, gameName);
 
 	draw::initializePlayer1Animation();
-	draw::initializePlayer2Animation();
+	//draw::initializePlayer2Animation();
 
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
+		BeginMode2D(camera);
 
 		draw::drawFrame();
 		draw::UpdateDrawFrame();
 
 		ClearBackground(bkgColor);
-		
+		EndMode2D();
 		EndDrawing();
 	}
 
