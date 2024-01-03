@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include "main.h"
 #include "draw.h"
-#include "entites.h"
+#include <iostream>
 
 int main()
 {
@@ -9,9 +9,10 @@ int main()
 	SetTargetFPS(60);
 	SetExitKey(0);
 
-	InitWindow(worldHeight, worldWidth, gameName);
+	InitWindow(worldWidth, worldHeight, gameName);
 
-	draw::initializePlayerAnimation();
+	draw::initializePlayer1Animation();
+	draw::initializePlayer2Animation();
 
 	while (!WindowShouldClose())
 	{
@@ -20,10 +21,12 @@ int main()
 		draw::drawFrame();
 		draw::UpdateDrawFrame();
 
-		ClearBackground(RAYWHITE);
+		ClearBackground(bkgColor);
+		
 		EndDrawing();
 	}
 
     CloseWindow();
+	
 	return 0;
 }

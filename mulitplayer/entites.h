@@ -21,16 +21,9 @@ namespace entites
         float height;
         float width;
         float speed;
-        float initX;
-        float initY;
+        float x;
+        float y;
         Color color;
-
-        bool isMoving = false;
-        bool isUp = false;
-        bool isDown = false;
-        bool isLeft = false;
-        bool isRight = false;
-        bool isIdle = true;
         
         AnimationState animationState = AnimationState::Idle;
 
@@ -43,42 +36,11 @@ namespace entites
 
         void drawE()
         {
-            DrawRectangle((int)initX, (int)initY, (int)width, (int)height, color);
+            DrawRectangle((int)x, (int)y, (int)width, (int)height, color);
         }
 
-        void moveE()
+        void animateE(AnimationState previousState)
         {
-            AnimationState previousState = animationState;
-
-            if (IsKeyDown(KEY_W) && initY >= 2)
-            {
-                initY -= speed;
-                isMoving = true;
-                isUp = true;
-                animationState = AnimationState::Idle;
-            }
-            if (IsKeyDown(KEY_S) && initY <= worldWidth - height - 4)
-            {
-                initY += speed;
-                isMoving = true;
-                isDown = true;
-                animationState = AnimationState::Idle;
-            }
-            if (IsKeyDown(KEY_A) && initX >= 3)
-            {
-                initX -= speed;
-                isMoving = true;
-                isLeft = true;
-                animationState = AnimationState::Idle;
-            }
-            if (IsKeyDown(KEY_D) && initX <= worldHeight - width - 6)
-            {
-                initX += speed;
-                isMoving = true;
-                isRight = true;
-                animationState = AnimationState::LWalk;
-            }
-
             if (previousState != animationState)
             {
                 switch (animationState)
@@ -87,23 +49,46 @@ namespace entites
                     playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, idle, 4);
                     break;
                 case AnimationState::LWalk:
-                    playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, walk, 6);
+                    playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, leftWalk, 6);
+                    break;
+                case AnimationState::RWalk:
+                    playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, rightWalk, 6);
                     break;
                 }
             }
-
-            if (!IsKeyDown(KEY_D) && previousState == AnimationState::LWalk)
+            if ((!IsKeyDown(KEY_D) && previousState == AnimationState::LWalk) || (!IsKeyDown(KEY_A) && previousState == AnimationState::RWalk))
             {
                 animationState = AnimationState::Idle;
                 playerAnimation = CreateSpriteAnimation(playerAnimationTexture, 8, idle, 4);
             }
-
-            isMoving = false;
-            isUp = false;
-            isDown = false;
-            isLeft = false;
-            isRight = false;
         }
 
+        void moveE()
+        {
+            AnimationState previousState = animationState;
+
+            if (IsKeyDown(KEY_W) && y >= 0)
+            {
+                y -= speed;
+                animationState = AnimationState::Idle;
+            }
+            if (IsKeyDown(KEY_S) && y <= worldHeight - height - 4)
+            {
+                y += speed;
+                animationState = AnimationState::Idle;
+            }
+            if (IsKeyDown(KEY_A) && x >= 3)
+            {
+                x -= speed;
+                animationState = AnimationState::RWalk;
+            }
+            if (IsKeyDown(KEY_D) && x <= worldWidth - width- 6)
+            {
+                x += speed;
+                animationState = AnimationState::LWalk;
+            }
+
+            animateE(previousState);
+        }
     };
 }
