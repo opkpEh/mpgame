@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.h"
-
+#include "main.h"
 namespace world
 {
     struct grass
@@ -11,14 +11,16 @@ namespace world
 
         enum class tileType
         {
-            grass = 1,
-            flower = 2
+            grass1 = 1,
+            grass2= 2,
+            flower1 = 3,
+            flower2= 4,
         };
 
-        const int rows = 10;  // Adjust as needed
-        const int cols = 10;  // Adjust as needed
+        const static int rows = (int)worldWidth/24;  
+        const static int cols = (int)worldHeight/24;
 
-        int mapMatrix[10][10];  // Adjust dimensions based on rows and cols
+        int mapMatrix[rows][cols];
 
         void generateMap()
         {
@@ -26,7 +28,7 @@ namespace world
             {
                 for (int j = 0; j < cols; ++j)
                 {
-                    mapMatrix[i][j] = GetRandomValue(1, 2);
+                    mapMatrix[i][j] = GetRandomValue(1, 4);
                 }
             }
         }
@@ -39,22 +41,34 @@ namespace world
                 {
                     switch (static_cast<tileType>(mapMatrix[i][j]))
                     {
-                    case tileType::grass:
+                    case tileType::grass1:
                         tileSource.x = 48;
                         tileSource.y = 0;
-                        tileSource.width = 48;
+                        tileSource.width = 24;
                         tileSource.height = 24;
                         break;
-                    case tileType::flower:
+                    case tileType::grass2:
+						tileSource.x = 72;
+						tileSource.y = 0;
+						tileSource.width = 24;
+						tileSource.height = 24;
+						break;
+                    case tileType::flower1:
                         tileSource.x = 48;
                         tileSource.y = 24;
-                        tileSource.width = 48;
+                        tileSource.width = 24;
                         tileSource.height = 24;
                         break;
+                    case tileType::flower2:
+						tileSource.x = 72;
+						tileSource.y = 24;
+						tileSource.width = 24;
+						tileSource.height = 24;
+						break;
                     }
 
-                    tileDest.x = j * 48;  // Adjust as needed
-                    tileDest.y = i * 48;  // Adjust as needed
+                    tileDest.x = (float)(j * 48);  
+                    tileDest.y = (float)(i * 48);  
 
                     DrawTexturePro(tileTexture, tileSource, tileDest, { 0, 0 }, 0, WHITE);
                 }
