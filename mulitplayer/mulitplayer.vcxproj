@@ -136,6 +136,7 @@
     <ClInclude Include="entites.h" />
     <ClInclude Include="frames.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\red_hood_girl\redHoodGirl.png" />

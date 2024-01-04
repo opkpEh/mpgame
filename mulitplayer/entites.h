@@ -5,7 +5,7 @@
 #include "animation.h"
 #include "frames.h"
 
-namespace entites
+namespace entities
 {  
     enum class AnimationState
 	{
@@ -33,11 +33,6 @@ namespace entites
         Rectangle dest;
         Vector2 origin;
         float rotation;
-
-        void drawE()
-        {
-            DrawRectangle((int)x, (int)y, (int)width, (int)height, color);
-        }
 
         void animateE(AnimationState previousState)
         {
@@ -89,6 +84,17 @@ namespace entites
             }
 
             animateE(previousState);
+        }
+
+        void render()
+        {
+            DrawSpriteAnimationPro(playerAnimation, dest, origin, rotation, WHITE);
+        }
+
+        void UpdateDrawFrame()
+        {
+            dest = { x, y, width, height };
+            moveE();
         }
     };
 }
