@@ -72,14 +72,13 @@ namespace enemies
         {
             AnimationState previousState = animationState;
 
-            int distanceToPlayer = shortest_path(dest.x, dest.y, playerX, playerY);
+            int distanceToPlayer = shortest_path((int)dest.x, (int)dest.y, playerX, playerY);
 
             if (distanceToPlayer > 0)
             {
                 float directionX = static_cast<float>(playerX - dest.x);
                 float directionY = static_cast<float>(playerY - dest.y);
 
-                // Normalize the direction vector to ensure consistent speed in all directions
                 float length = sqrt(directionX * directionX + directionY * directionY);
                 if (length > 0)
                 {
@@ -87,11 +86,9 @@ namespace enemies
                     directionY /= length;
                 }
 
-                // Adjust the enemy's position based on the direction and speed
                 dest.x += static_cast<int>(directionX * speed);
                 dest.y += static_cast<int>(directionY * speed);
 
-                // Determine the animation state based on the current movement keys
                 if (IsKeyDown(KEY_W))
                 {
                     animationState = AnimationState::UWalk;
@@ -100,7 +97,7 @@ namespace enemies
                 {
                     animationState = AnimationState::DWalk;
                 }
-                else if (IsKeyDown(KEY_A))
+                else if (IsKeyDown(KEY_A) && dest.x > playerX)
                 {
                     animationState = AnimationState::RWalk;
                 }

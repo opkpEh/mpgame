@@ -32,8 +32,8 @@ namespace draw
         enemy.rotation= 0.0f;
         enemy.speed = 6.0f;
         enemy.animation = CreateSpriteAnimation(enemy.animationTexture, 8, idle, 4);
-        enemy.playerX= player.dest.x;
-        enemy.playerY= player.dest.y;
+        enemy.playerX= (int)player.dest.x;
+        enemy.playerY= (int)player.dest.y;
     }
 
     void initializeMap()
@@ -49,8 +49,8 @@ namespace draw
     {
         grassMap.renderMap();
         player.render();
-        enemy.playerX= player.dest.x;
-        enemy.playerY= player.dest.y;
+        enemy.playerX= (int)player.dest.x;
+        enemy.playerY= (int)player.dest.y;
         enemy.render();
     }
 }

@@ -28,6 +28,7 @@ Rectangle leftWalk[] = {
     {220, 04, 15, 17},
 }; 
 //6
+
 Rectangle rightWalk[] = {
 	{777, 04, 15, 17},
     {753, 04, 15, 17},

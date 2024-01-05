@@ -7,7 +7,6 @@ int main()
 {
 	SetWindowState(FLAG_VSYNC_HINT);
 	SetTargetFPS(60);
-	SetExitKey(0);
 
 	InitWindow(worldWidth, worldHeight, gameName);
 
