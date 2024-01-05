@@ -13,12 +13,17 @@ namespace world
         {
             grass1 = 1,
             grass2= 2,
-            flower1 = 3,
-            flower2= 4,
+            grass3 = 3,
+            grass4 = 4,
+            grass5 = 5,
+            grass6= 6,
+            grass7 = 7,
+            flower1 = 8,
+            flower2 = 9,
         };
 
-        const static int rows = (int)worldWidth/24;  
-        const static int cols = (int)worldHeight/24;
+        const static int rows = (int)worldWidth/16;  
+        const static int cols = (int)worldHeight/16;
 
         int mapMatrix[rows][cols];
 
@@ -28,7 +33,7 @@ namespace world
             {
                 for (int j = 0; j < cols; ++j)
                 {
-                    mapMatrix[i][j] = GetRandomValue(1, 4);
+                    mapMatrix[i][j] = GetRandomValue(1, 9);
                 }
             }
         }
@@ -44,35 +49,50 @@ namespace world
                     case tileType::grass1:
                         tileSource.x = 48;
                         tileSource.y = 0;
-                        tileSource.width = 24;
-                        tileSource.height = 24;
                         break;
                     case tileType::grass2:
-						tileSource.x = 72;
+						tileSource.x = 64;
 						tileSource.y = 0;
-						tileSource.width = 24;
-						tileSource.height = 24;
+						break;
+                    case tileType::grass3:
+                        tileSource.x = 80;
+                        tileSource.y = 0;
+                        break;
+                    case tileType::grass4:
+                        tileSource.x = 48;
+                        tileSource.y = 16;
+                        break;
+                    case tileType::grass5:
+                        tileSource.x = 64;
+                        tileSource.y = 16;
+                        break;
+                    case tileType::grass6:
+						tileSource.x = 80;
+						tileSource.y = 16;
+						break;
+                    case tileType::grass7:
+                        tileSource.x = 48;
+						tileSource.y = 32;
 						break;
                     case tileType::flower1:
-                        tileSource.x = 48;
-                        tileSource.y = 24;
-                        tileSource.width = 24;
-                        tileSource.height = 24;
+                        tileSource.x = 64;
+                        tileSource.y = 32;
                         break;
                     case tileType::flower2:
-						tileSource.x = 72;
-						tileSource.y = 24;
-						tileSource.width = 24;
-						tileSource.height = 24;
-						break;
+                        tileSource.x = 80;
+                        tileSource.y = 32;
+                        break;
                     }
 
-                    tileDest.x = (float)(j * 48);  
-                    tileDest.y = (float)(i * 48);  
+                    tileDest.x = (float)(j * 32);  
+                    tileDest.y = (float)(i * 32);  
 
                     DrawTexturePro(tileTexture, tileSource, tileDest, { 0, 0 }, 0, WHITE);
                 }
             }
         }
+
+        
+
     };
 }

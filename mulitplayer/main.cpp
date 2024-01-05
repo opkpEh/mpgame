@@ -11,14 +11,14 @@ int main()
 
 	InitWindow(worldWidth, worldHeight, gameName);
 
-	draw::initializePlayerAnimation();
+	draw::initializePlayer();
+	draw::initializeEnemy();
 	draw::initializeMap();
 
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
 		draw::drawFrame();
-
 		ClearBackground(bkgColor);
 
 		EndDrawing();
