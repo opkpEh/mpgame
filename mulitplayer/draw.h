@@ -8,7 +8,7 @@
 
 entities::player player;
 enemies::enemy enemy;
-world::grass grassMap;
+world::mapGen map;
 
 namespace draw
 {  
@@ -37,13 +37,15 @@ namespace draw
     }
 
     void initializeMap()
-    {
-        grassMap.tileTexture = LoadTexture("assets/grass/grass.png");
-        grassMap.tileSource = { 48, 0, 16, 16 };
-        grassMap.tileDest = { 48, 48, 32, 32 };
-        grassMap.generateMap();
-		
-    }
+{
+    map.grassTexture = LoadTexture("assets/map/Texture/TX_Tileset_Grass.png");
+    map.grassSource = { 48, 0, 16, 16 };
+    map.grassDest = { 0, 0, 32, 32 };
+
+    int rows = (int)(GetScreenHeight() / enemy.dest.height);
+    int cols = (int)(GetScreenWidth() / enemy.dest.width);
+    map.initMap(rows, cols);
+}
 
     void drawFrame()
     {
