@@ -1,1 +1,3 @@
-Goal of this project is to get a functional basic multiplayer game.
+This project uses raylib.
+
+This project was made to test out raylib and its feature
