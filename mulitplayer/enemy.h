@@ -41,6 +41,8 @@ namespace enemies
         int playerX;
         int playerY;
 
+        bool caught;
+
         AnimationState animationState = AnimationState::Idle;
 
         void animate(AnimationState previousState)
@@ -68,7 +70,7 @@ namespace enemies
 
             int distanceToPlayer = shortest_path((int)dest.x, (int)dest.y, playerX, playerY);
 
-            if (distanceToPlayer > 0)
+            if (distanceToPlayer > 10)
             {
                 float directionX = static_cast<float>(playerX - dest.x);
                 float directionY = static_cast<float>(playerY - dest.y);
@@ -103,7 +105,7 @@ namespace enemies
             else
             {
                 animationState = AnimationState::Idle;
-                
+                caught = true;
             }
 
             animate(previousState);

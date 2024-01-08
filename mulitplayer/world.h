@@ -38,11 +38,21 @@ namespace world
         void generateMap() {
             srand(static_cast<unsigned>(time(nullptr)));
 
-            generateTerrain(TerrainType::Grass, rows * cols / 2);
-            generateTerrain(TerrainType::Rock, rows * cols / 8);
-            generateTerrain(TerrainType::Bush, rows * cols / 8);
-            generateTerrain(TerrainType::Grass2, rows * cols / 8);
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    map[i][j] = TerrainType::Grass;
+                }
+            }
+
+            generateTerrain(TerrainType::Grass2, rows * cols / 4);
+
+            int rockCount = rows * cols / 16;
+            int bushCount = rows * cols / 8;
+
+            generateTerrain(TerrainType::Rock, rockCount);
+            generateTerrain(TerrainType::Bush, bushCount);
         }
+
 
 
         void initMap(int _rows, int _cols) {
@@ -72,8 +82,8 @@ namespace world
             for (int i = 0; i < rows; ++i) {
                 for (int j = 0; j < cols; ++j) {
                     switch (map[i][j]) {
-                    case TerrainType::Grass:
-                        mapSource= {48, 0, 16, 16};
+                    case TerrainType::Grass2:
+                        mapSource = { 48, 0, 16, 16 };
                         break;
                     case TerrainType::Rock:
                         mapSource = { 64, 32, 16, 16 };
@@ -81,7 +91,7 @@ namespace world
                     case TerrainType::Bush:
                         mapSource = { 80, 32, 16, 16 };
                         break;
-                    case TerrainType::Grass2:
+                    case TerrainType::Grass:
                         mapSource = { 64, 0, 16, 16 };
                         break;
                     }
@@ -93,6 +103,16 @@ namespace world
                 }
 
             }
+        };
+
+        void unloadMap()
+        {
+            UnloadTexture(mapTexture);
+        }
+            
+        ~mapGen()
+        {
+            unloadMap();
         }
     };
 }

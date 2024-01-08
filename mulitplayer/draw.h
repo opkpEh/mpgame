@@ -10,6 +10,10 @@ entities::player player;
 enemies::enemy enemy;
 world::mapGen map;
 
+Font gameFont;
+const char* caughtMessage = "You've Been Caught!";
+int fontSize = 40;
+
 namespace draw
 {
     void initializePlayer()
@@ -22,6 +26,7 @@ namespace draw
 
         player.animation = CreateSpriteAnimation(player.animationTexture, 8, idle, 4);
         //                                     texture, fps, rectangles, length
+        player.isAlive = true;
     }
 
     void initializeEnemy()
@@ -34,6 +39,7 @@ namespace draw
         enemy.animation = CreateSpriteAnimation(enemy.animationTexture, 8, idle, 4);
         enemy.playerX = (int)player.dest.x;
         enemy.playerY = (int)player.dest.y;
+        enemy.caught = false;
     }
 
     void initializeMap()
@@ -46,12 +52,62 @@ namespace draw
         map.initMap(rows, cols);
     }
 
-    void drawFrame()
+    void unloadGame()
+    {
+        UnloadTexture(player.animationTexture);
+        UnloadTexture(enemy.animationTexture);
+        UnloadFont(gameFont);
+        DisposeSpriteAnimation(player.animation);
+        DisposeSpriteAnimation(enemy.animation);
+        UnloadTexture(map.mapTexture);
+    }
+
+    void initializeGame()
+    {
+        unloadGame();
+        initializePlayer();
+        initializeEnemy();
+        initializeMap();
+        gameFont = LoadFont("assets/fonts/DungeonFont.ttf");
+    }
+
+    void drawMainMenu()
+    {
+        float logoX = static_cast<float>(GetScreenWidth() / 2) - MeasureText("Dino Escape", 50) / 2;
+        float logoY = static_cast<float>(GetScreenHeight() / 2 - 50);
+        player.render();
+        DrawTextEx(gameFont, "Dino Escape", { logoX, logoY }, 50, 0, WHITE);
+        DrawTextEx(gameFont, "[Press Enter to Start]", { logoX - 25, logoY + 50 }, 50, 0, GRAY);
+    }
+
+    void drawEndScreen()
+    {
+        float caughtMessageX = static_cast<float>(GetScreenWidth() / 2) - MeasureText(caughtMessage, fontSize) / 2;
+        float caughtMessageY = static_cast<float>(GetScreenHeight() / 2 - fontSize);
+
+        DrawTextEx(gameFont, caughtMessage, { caughtMessageX, caughtMessageY }, fontSize, 0, WHITE);
+        DrawTextEx(gameFont, "[Press Space to Restart]", { caughtMessageX - 25, caughtMessageY + 50 }, fontSize, 0, WHITE);
+
+    }
+
+    void drawGame()
     {
         map.renderMap();
         player.render();
         enemy.playerX = (int)player.dest.x;
         enemy.playerY = (int)player.dest.y;
         enemy.render();
+        
+        if(enemy.caught)
+		{
+            player.isAlive = false;
+            drawEndScreen();
+
+            if (IsKeyDown(KEY_SPACE))
+            {
+                map.unloadMap();
+                initializeGame();
+            }
+        }
     }
 }

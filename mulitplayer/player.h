@@ -25,6 +25,8 @@ namespace entities
         float rotation;
         float speed;
 
+        bool isAlive;
+
         AnimationState animationState = AnimationState::Idle;
         
         void animate(AnimationState previousState)
@@ -87,8 +89,11 @@ namespace entities
 
         void render()
         {
-            DrawSpriteAnimationPro(animation, dest, source, rotation, WHITE);
-            UpdateDrawFrame(dest.x, dest.y);
+            if (isAlive)
+            {
+                DrawSpriteAnimationPro(animation, dest, source, rotation, WHITE);
+                UpdateDrawFrame(dest.x, dest.y);
+            }
         }
 
     };
