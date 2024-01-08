@@ -19,7 +19,7 @@ namespace draw
     void initializePlayer()
     {
         player.animationTexture = LoadTexture("assets/character/redDino.png");
-        player.dest = { 800, 500, 32, 32 };
+        player.dest = { 800, 600, 32, 32 };
         player.source = { 4, 4 };
         player.rotation = 0.0f;
         player.speed = 14.0f;
@@ -76,8 +76,8 @@ namespace draw
         float logoX = static_cast<float>(GetScreenWidth() / 2) - MeasureText("Dino Escape", 50) / 2;
         float logoY = static_cast<float>(GetScreenHeight() / 2 - 50);
         player.render();
-        DrawTextEx(gameFont, "Dino Escape", { logoX, logoY }, 50, 0, WHITE);
-        DrawTextEx(gameFont, "[Press Enter to Start]", { logoX - 25, logoY + 50 }, 50, 0, GRAY);
+        DrawTextEx(gameFont, " Dino Escape", { logoX, logoY }, 50, 0, WHITE);
+        DrawTextEx(gameFont, "[Press W  A  S  D to Start]", { logoX - 100, logoY + 50 }, 50, 0, GRAY);
     }
 
     void drawEndScreen()
@@ -85,8 +85,8 @@ namespace draw
         float caughtMessageX = static_cast<float>(GetScreenWidth() / 2) - MeasureText(caughtMessage, fontSize) / 2;
         float caughtMessageY = static_cast<float>(GetScreenHeight() / 2 - fontSize);
 
-        DrawTextEx(gameFont, caughtMessage, { caughtMessageX, caughtMessageY }, fontSize, 0, WHITE);
-        DrawTextEx(gameFont, "[Press Space to Restart]", { caughtMessageX - 25, caughtMessageY + 50 }, fontSize, 0, WHITE);
+        DrawTextEx(gameFont, caughtMessage, { caughtMessageX, caughtMessageY }, (float)fontSize, 0, WHITE);
+        DrawTextEx(gameFont, "[Press Space to Restart]", { caughtMessageX - 25, caughtMessageY + 50 }, (float)fontSize, 0, WHITE);
 
     }
 

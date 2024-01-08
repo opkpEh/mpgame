@@ -14,6 +14,8 @@ int shortest_path(int x1, int y1, int x2, int y2) {
     return distance;
 }
 
+bool playerImmune = false;
+
 namespace enemies
 {
     enum class AnimationState
@@ -24,6 +26,8 @@ namespace enemies
         UWalk,
         DWalk
     };
+
+
 
     struct enemy
     {
@@ -43,7 +47,7 @@ namespace enemies
 
         bool caught;
 
-        AnimationState animationState = AnimationState::Idle;
+        AnimationState animationState = AnimationState::LWalk;
 
         void animate(AnimationState previousState)
         {

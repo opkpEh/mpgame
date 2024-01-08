@@ -2,8 +2,8 @@
 #include "draw.h"
 #include <iostream>
 
-const int worldHeight = 960;
-const int worldWidth = 1320;
+const int worldHeight = 1024;
+const int worldWidth = 1920;
 const Color bkgColor = { 118, 173, 168 };
 const char* gameName = "Run";
 
@@ -31,7 +31,7 @@ int main()
 		{
 			case MAIN_MENU:
 				draw::drawMainMenu();
-				if(IsKeyPressed(KEY_ENTER))
+				if(IsKeyPressed(KEY_W)|| IsKeyPressed(KEY_S) || IsKeyPressed(KEY_A) || IsKeyPressed(KEY_D))
 				{
 					gameState = PLAYING;
 				}
