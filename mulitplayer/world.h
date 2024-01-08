@@ -6,21 +6,21 @@ namespace world
 {
     struct mapGen
     {
-        Texture2D grassTexture;
-        Rectangle grassSource;
-        Rectangle grassDest;
+        Texture2D mapTexture;
+        Rectangle mapSource;
+        Rectangle mapDest;
 
         enum class TerrainType
         {
             Grass,
             Rock,
             Bush,
-            Tree
+            Grass2
         };
 
         int rows;
         int cols;
-        
+
         std::vector<std::vector<TerrainType>> map;
 
         void generateTerrain(TerrainType terrain, int count) {
@@ -41,7 +41,7 @@ namespace world
             generateTerrain(TerrainType::Grass, rows * cols / 2);
             generateTerrain(TerrainType::Rock, rows * cols / 8);
             generateTerrain(TerrainType::Bush, rows * cols / 8);
-            generateTerrain(TerrainType::Tree, rows * cols / 8);
+            generateTerrain(TerrainType::Grass2, rows * cols / 8);
         }
 
 
@@ -60,7 +60,7 @@ namespace world
                     case TerrainType::Grass: symbol = '.'; break;
                     case TerrainType::Rock: symbol = '#'; break;
                     case TerrainType::Bush: symbol = '*'; break;
-                    case TerrainType::Tree: symbol = 'T'; break;
+                    case TerrainType::Grass2: symbol = 'T'; break;
                     }
                     std::cout << symbol << ' ';
                 }
@@ -73,27 +73,23 @@ namespace world
                 for (int j = 0; j < cols; ++j) {
                     switch (map[i][j]) {
                     case TerrainType::Grass:
-                        grassSource.x = 0;
-                        grassSource.y = 0;
+                        mapSource= {48, 0, 16, 16};
                         break;
                     case TerrainType::Rock:
-                        grassSource.x = 80;
-                        grassSource.y = 0;
+                        mapSource = { 64, 32, 16, 16 };
                         break;
                     case TerrainType::Bush:
-                        grassSource.x = 64;
-                        grassSource.y = 16;
+                        mapSource = { 80, 32, 16, 16 };
                         break;
-                    case TerrainType::Tree:
-                        grassSource.x = 80;
-                        grassSource.y = 16;
+                    case TerrainType::Grass2:
+                        mapSource = { 64, 0, 16, 16 };
                         break;
                     }
 
-                    grassDest.x = static_cast<float>(j * grassDest.height);
-                    grassDest.y = static_cast<float>(i * grassDest.width);
+                    mapDest.x = static_cast<float>(j * mapDest.height);
+                    mapDest.y = static_cast<float>(i * mapDest.width);
 
-                    DrawTexturePro(grassTexture, grassSource, grassDest, { 0, 0 }, 0, WHITE);
+                    DrawTexturePro(mapTexture, mapSource, mapDest, { 0, 0 }, 0, WHITE);
                 }
 
             }

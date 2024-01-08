@@ -136,7 +136,6 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="frames.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>

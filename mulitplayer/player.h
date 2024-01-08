@@ -1,6 +1,5 @@
 #pragma once
 #include "raylib.h"
-#include "main.h"
 #include "animation.h"
 #include "frames.h"
 
@@ -61,7 +60,7 @@ namespace entities
                     dest.y -= speed;
                     animationState = AnimationState::Idle;
                 }
-                if (IsKeyDown(KEY_S) && dest.y <= worldHeight - dest.height)
+                if (IsKeyDown(KEY_S) && dest.y <= (int)GetScreenHeight() - dest.height)
                 {
                     dest.y += speed;
                     animationState = AnimationState::Idle;
@@ -71,7 +70,7 @@ namespace entities
                     dest.x -= speed;
                     animationState = AnimationState::RWalk;
                 }
-                if (IsKeyDown(KEY_D) && dest.x <= worldWidth - dest.width)
+                if (IsKeyDown(KEY_D) && dest.x <= (int)GetScreenWidth() - dest.width)
                 {
                     dest.x += speed;
                     animationState = AnimationState::LWalk;

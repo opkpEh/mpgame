@@ -2,7 +2,6 @@
 #include <iostream>
 #include "cmath"
 #include "raylib.h"
-#include "main.h"
 #include "animation.h"
 #include "frames.h"
 
@@ -61,11 +60,6 @@ namespace enemies
                     break;
                 }
             }
-            if ((!IsKeyDown(KEY_D) && previousState == AnimationState::LWalk) || (!IsKeyDown(KEY_A) && previousState == AnimationState::RWalk))
-            {
-                animationState = AnimationState::Idle;
-                animation = CreateSpriteAnimation(animationTexture, 8, idle, 4);
-            }
         };
 
         void move()
@@ -109,6 +103,7 @@ namespace enemies
             else
             {
                 animationState = AnimationState::Idle;
+                
             }
 
             animate(previousState);
